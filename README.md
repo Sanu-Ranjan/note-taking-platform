@@ -4,6 +4,8 @@ A backend-focused, full-stack note-taking app with Node.js, Express, MySQL (Sequ
 
 ## Progress log
 
+Check here for the App features : [App Features](./docs/features.md)
+
 Check the detailed development progress here : [Progress log](./docs/progress.md)
 
 ## Roadmap / Milestones
