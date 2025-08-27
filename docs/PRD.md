@@ -31,13 +31,40 @@
 
 - **Note Listing** : View notes of a subject
 - **Notes Creation** : Create new notes with topic name and content under a subject
-- **Notes Sharing** : Create new share request to share notes with another user
 - **Notes Updation** : Modify content on a note
 - **Notes Deletion** : Remove Notes
 - **Notes Search** : Search notes by topic name
 
 #### 3.4 Request Management
 
+- **Notes Sharing** : Create new share request to share notes with another user
 - **Reject Request** : Reject incoming request to recieve notes
 - **Accept Request** : Accept request to recieve notes
 - **Cancell Request** : Cancell send request
+
+### 4 API end points
+
+**Authentication Routes** (`/api/v1/auth/`)
+
+- `POST/` - User registration and User login
+
+**Subjects Routes (protected routes)** (`/api/v1/subjects`)
+
+- `GET/` - Subject Listing of a user
+- `POST/` - Subject Creation for a user
+- `GET/:name` - Search Subject for a user
+- `POST/:id` - Subject Deletion for a user
+
+**Notes Routes (protected routes)** (`/api/v1/notes`)
+
+- `GET/:id` - Note Listing of a subject
+- `POST/` - Notes Creation
+- `PUT/:id` - Notes Updation
+- `POST/:id` - Notes Deletion
+- `GET/:topic` - Notes Search
+
+**Requests Routes (protected routes)** (`api/v1/requests`)
+
+- `POST/` - Create Note Sharing request
+- `POST/:id` - Accept/reject request
+- `GET/` - List all incoming request
