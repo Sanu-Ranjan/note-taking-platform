@@ -46,7 +46,10 @@
 
 **Authentication Routes** (`/api/v1/auth/`)
 
-- `POST/` - User registration and User login
+- `/google` - Redirects user to Google consent screen
+- `/google/callback`- Read user profile, upsert user in DB, generate ascess and refresh token
+- `/refresh`- Rotate refresh token to issue new acess token
+- `/logout` - Revokes current access token
 
 **Subjects Routes (protected routes)** (`/api/v1/subjects`)
 
