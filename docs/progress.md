@@ -7,3 +7,5 @@
 - Setup basic scaffolding
 - Project features added
 - Mysql Database schema added
+- Project requirements document added
+- Folder structure added for backend
