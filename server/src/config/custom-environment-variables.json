@@ -1,0 +1,12 @@
+{
+  "server": {
+    "port": "PORT"
+  },
+  "mysqlDB": {
+    "database": "DBNAME",
+    "user": "DBUSER",
+    "password": "DBPASS",
+    "port": "DBPORT",
+    "ssl": "DBSSL"
+  }
+}

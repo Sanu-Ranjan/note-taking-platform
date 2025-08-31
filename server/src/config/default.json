@@ -1,0 +1,13 @@
+{
+  "server": {
+    "port": ""
+  },
+  "mysqlDB": {
+    "databse": "",
+    "user": "",
+    "password": "",
+    "host": "",
+    "port": "",
+    "ssl": ""
+  }
+}
