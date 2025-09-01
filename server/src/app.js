@@ -3,15 +3,18 @@ let app = express();
 
 if (app.get("env") === "development") {
   require("dotenv").config();
-  console.log("working");
+  console.log("ENV: Development");
 }
 
-const port = process.env.PORT || 3000;
+const { database } = require("./db/databse");
 
 app.get("/", (req, res) => {
-  res.send("BAckend is running");
+  res.send("Backend is running");
 });
 
-app.listen(port, () => {
-  console.log(`listening on port:${port}`);
+const port = process.env.PORT || 3000;
+database.sync({ force: false }).then(() => {
+  app.listen(port, () => {
+    console.log(`listening on port:${port}`);
+  });
 });

@@ -3,7 +3,7 @@
     "port": "3000"
   },
   "mysqlDB": {
-    "databse": "practise",
+    "database": "practise",
     "user": "root",
     "host": "localhost",
     "port": "3303"
