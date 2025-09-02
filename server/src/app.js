@@ -6,6 +6,8 @@ if (app.get("env") === "development") {
   console.log("ENV: Development");
 }
 
+require("./models");
+
 const { database } = require("./db/databse");
 
 app.get("/", (req, res) => {
@@ -13,8 +15,14 @@ app.get("/", (req, res) => {
 });
 
 const port = process.env.PORT || 3000;
-database.sync({ force: false }).then(() => {
-  app.listen(port, () => {
-    console.log(`listening on port:${port}`);
-  });
-});
+
+(async function () {
+  try {
+    await database.sync({ force: true });
+    app.listen(port, () => {
+      console.log(`listening on port:${port}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+})();

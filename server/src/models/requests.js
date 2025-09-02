@@ -3,12 +3,12 @@ const { DataTypes } = require("sequelize");
 
 const Requests = database.define("requests", {
   id: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
   fromUser: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 });

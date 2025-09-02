@@ -10,11 +10,11 @@ Subjects.belongsTo(Users);
 Subjects.hasMany(Notes);
 Notes.belongsTo(Subjects);
 
-Users.hasMany(Notes, { through: Recievednotes });
-Notes.hasMany(Users, { through: Recievednotes });
+Users.belongsToMany(Notes, { through: Recievednotes });
+Notes.belongsToMany(Users, { through: Recievednotes });
 
-Users.hasMany(Notes, { through: Requests });
-Notes.hasMany(Users, { through: Requests });
+Users.belongsToMany(Notes, { through: Requests });
+Notes.belongsToMany(Users, { through: Requests });
 
 module.exports = {
   Users,

@@ -1,9 +1,9 @@
 const { database } = require("../db/databse");
 const { DataTypes } = require("sequelize");
 
-const Recievednotes = database.define("recieved", {
+const Recievednotes = database.define("recievedNotes", {
   id: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },

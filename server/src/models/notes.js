@@ -3,7 +3,7 @@ const { DataTypes } = require("sequelize");
 
 const Notes = database.define("notes", {
   id: {
-    type: DataTypes.NUMBER,
+    type: DataTypes.INTEGER,
     autoIncrement: true,
     primaryKey: true,
   },
