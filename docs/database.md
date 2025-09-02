@@ -17,6 +17,7 @@
 - id (PK)
 - topic
 - content
+- subjectId (FK->Subjects.id)
 
 ### Recievednotes
 
