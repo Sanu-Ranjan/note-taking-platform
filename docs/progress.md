@@ -9,3 +9,6 @@
 - Mysql Database schema added
 - Project requirements document added
 - Folder structure added for backend
+- basic express server setup
+- config for production and devlopment
+- databse connection added

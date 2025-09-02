@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 const config = require("config");
-
+require("../utils/configValidator");
 const isProduction = process.env.NODE_ENV === "production";
 
 const database = new Sequelize(
@@ -16,7 +16,7 @@ const database = new Sequelize(
           ssl: {
             require: true,
             rejectUnauthorized: true,
-            ca: process.env.DB_CA_CERT.replace(/\\n/g, "\n"),
+            ca: config.get("mysqlDB.ssl").replace(/\\n/g, "\n"),
           },
         }
       : {},
@@ -26,14 +26,14 @@ const database = new Sequelize(
 (async () => {
   try {
     await database.authenticate();
-    console.log("connection has been extablished");
+    console.log("connection to database server has been extablished");
 
     const [result] = await database.query(
       "SHOW SESSION STATUS LIKE 'Ssl_cipher'"
     );
     console.log("SSL Cipher:", result[0]?.Value || "Not using SSL");
   } catch (error) {
-    console.log("Unable to connect to data base: ", error.message);
+    console.log("Unable to connect to data base: ", error);
     process.exit(1);
   }
 })();

@@ -22,4 +22,4 @@ if (error) {
     `Refer .env.example, Config validation error: ${error.message}`
   );
 }
-console.log("Config validated successfully");
+console.log("Config validated successfully\n", config);
