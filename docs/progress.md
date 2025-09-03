@@ -12,3 +12,4 @@
 - basic express server setup
 - config for production and devlopment
 - databse connection added
+- associations between tables created
