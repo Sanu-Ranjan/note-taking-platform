@@ -13,3 +13,6 @@
 - config for production and devlopment
 - databse connection added
 - associations between tables created
+- global error handler added at utils
+- common send response object added at utils
+-
