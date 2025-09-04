@@ -8,8 +8,6 @@ const oauth2Client = new OAuth2Client({
   redirectUri: googleClient.redirect_uris,
 });
 
-const SCOPES = ["openid", "email", "profile"];
-
 const url = oauth2Client.generateAuthUrl({
   access_type: "online",
   scope: ["openid", "email", "profile"],
@@ -17,4 +15,5 @@ const url = oauth2Client.generateAuthUrl({
 
 module.exports = {
   url,
+  oauth2Client,
 };
