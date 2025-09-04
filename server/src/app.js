@@ -1,11 +1,15 @@
 const express = require("express");
 let app = express();
-app.get("env") === "development" && require("dotenv").config();
+//app.get("env") === "development" && require("dotenv").config();
 const { database } = require("./db/databse");
 require("./models");
 const { globalErrorHandler } = require("./utils/globalErrorHandler");
 
+const authentication = require("./routes/authentication");
+
 app.use(express.json());
+
+app.use("/api/v1/auth", authentication.router);
 
 app.use((req, res, next) => {
   res.status(404).json({
