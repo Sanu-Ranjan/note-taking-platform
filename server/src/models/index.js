@@ -1,5 +1,6 @@
 const { Notes } = require("./notes");
 const { Recievednotes } = require("./recievedNotes");
+const { RefreshTokens } = require("./refreshTokens");
 const { Requests } = require("./requests");
 const { Subjects } = require("./subjects");
 const { Users } = require("./users");
@@ -16,10 +17,14 @@ Notes.belongsToMany(Users, { through: Recievednotes });
 Users.belongsToMany(Notes, { through: Requests });
 Notes.belongsToMany(Users, { through: Requests });
 
+Users.hasMany(RefreshTokens);
+RefreshTokens.belongsTo(Users);
+
 module.exports = {
   Users,
   Notes,
   Subjects,
   Recievednotes,
   Requests,
+  RefreshTokens,
 };
