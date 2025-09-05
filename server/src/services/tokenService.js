@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const config = require("config");
 
 let secret = process.env.JWT_SECRET;
 let expiry = process.env.JWT_ASCESS_EXPIRES;
@@ -10,7 +9,7 @@ if (!secret) {
 }
 
 function signToken(payload) {
-  const token = jwt.sign(payload, config.get(secret), {
+  const token = jwt.sign(payload, secret, {
     expiresIn: expiry || "5d",
   });
   return token;
