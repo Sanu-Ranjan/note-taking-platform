@@ -25,3 +25,4 @@
 - added logic to get google client credential and generate redirect url at services folder
 - added route for authentication/authorization (get method complete for redirecting users to consent screen)
 - added callback route for getting user info(incomplete)
+- added state verification (send state with cookie and redirect url and vrifying them at callback api)
