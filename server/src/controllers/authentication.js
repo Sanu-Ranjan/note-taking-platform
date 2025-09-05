@@ -2,12 +2,12 @@ const {
   generateAuthUrl,
   oauth2Client,
 } = require("../services/googleAuthService");
-const { googleClient } = require("../utils");
+const { googleClient, sendResponse } = require("../utils");
 const crypto = require("crypto");
 
 const isProd = process.env.NODE_ENV === "production";
 
-const redirect = (req, res) => {
+const consentRedirect = (req, res) => {
   const state = crypto.randomBytes(16).toString("hex");
   res.cookie("oauth_state", state, {
     httpOnly: true,
@@ -20,11 +20,15 @@ const redirect = (req, res) => {
 
 const getUser = async (req, res) => {
   try {
-    const { code, error } = req.query;
-    console.log(error);
+    const { code, state, error } = req.query;
+
+    if (!state || state !== req.cookies.oauth_state) {
+      return res.status(400).json(sendResponse.fail("Invalid State"));
+    }
+
     const { tokens } = await oauth2Client.getToken(code);
 
-    const ticket = oauth2Client.verifyIdToken({
+    const ticket = await oauth2Client.verifyIdToken({
       idToken: tokens.id_token,
       audience: googleClient.client_id,
     });
@@ -36,6 +40,6 @@ const getUser = async (req, res) => {
   }
 };
 module.exports = {
-  redirect,
+  consentRedirect,
   getUser,
 };
