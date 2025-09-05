@@ -32,7 +32,15 @@ const getUser = async (req, res) => {
 
     const ticket = await verifyIdToken(tokens);
 
-    console.log(ticket);
+    const isVerified = ticket.getPayload().email_verified;
+    if (!isVerified)
+      return res.status(400).json(sendResponse.fail("Email not verified"));
+
+    const user = {
+      name: ticket.getPayload().name,
+      email: ticket.getPayload().email,
+    };
+
     res.send("login success");
   } catch (error) {
     console.log(error);
