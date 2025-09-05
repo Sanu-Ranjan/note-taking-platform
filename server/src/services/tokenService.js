@@ -1,4 +1,5 @@
 const jwt = require("jsonwebtoken");
+const crypto = require("crypto");
 
 let secret = process.env.JWT_SECRET;
 let expiry = process.env.JWT_ASCESS_EXPIRES;
@@ -15,6 +16,11 @@ function signToken(payload) {
   return token;
 }
 
+function refreshToken() {
+  return crypto.randomBytes(64).toString("base64url");
+}
+
 module.exports = {
   signToken,
+  refreshToken,
 };
