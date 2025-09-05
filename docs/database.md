@@ -31,3 +31,12 @@
 - fromUser
 - noteId (FK->Notes.id)
 - userId (FK->Users.id)
+
+### RefreshTokens
+
+- id
+- tokenHash
+- replaceHash
+- expiresAt
+- revokedAt
+- userId (FK-> Users.id)
