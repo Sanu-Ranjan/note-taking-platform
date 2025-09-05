@@ -8,7 +8,7 @@ const oauth2Client = new OAuth2Client({
   redirectUri: googleClient.redirect_uris,
 });
 function generateAuthUrl(state) {
-  const url = oauth2Client.generateAuthUrl({
+  return oauth2Client.generateAuthUrl({
     access_type: "online",
     scope: ["openid", "email", "profile"],
     state: state,
