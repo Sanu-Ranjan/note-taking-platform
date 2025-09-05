@@ -1,3 +1,4 @@
+const { Users } = require("../models");
 const {
   generateAuthUrl,
   oauth2Client,
@@ -36,10 +37,23 @@ const getUser = async (req, res) => {
     if (!isVerified)
       return res.status(400).json(sendResponse.fail("Email not verified"));
 
-    const user = {
+    const profile = {
       name: ticket.getPayload().name,
       email: ticket.getPayload().email,
     };
+
+    let user = await Users.findOne({ where: { email: profile.email } });
+
+    if (!user) {
+      user = await Users.create({
+        name: profile.name,
+        email: profile.email,
+      });
+    } else {
+      user = await Users.update({
+        name: profile.name,
+      });
+    }
 
     res.send("login success");
   } catch (error) {
