@@ -7,13 +7,15 @@ const oauth2Client = new OAuth2Client({
   clientSecret: googleClient.client_secret,
   redirectUri: googleClient.redirect_uris,
 });
-
-const url = oauth2Client.generateAuthUrl({
-  access_type: "online",
-  scope: ["openid", "email", "profile"],
-});
+function generateAuthUrl(state) {
+  const url = oauth2Client.generateAuthUrl({
+    access_type: "online",
+    scope: ["openid", "email", "profile"],
+    state: state,
+  });
+}
 
 module.exports = {
-  url,
+  generateAuthUrl,
   oauth2Client,
 };
