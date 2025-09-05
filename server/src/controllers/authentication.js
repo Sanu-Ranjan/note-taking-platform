@@ -4,6 +4,8 @@ const {
   oauth2Client,
   verifyIdToken,
 } = require("../services/googleAuthService");
+const { signToken, refreshToken } = require("../services/tokenService");
+const { upsertUser } = require("../services/userServices");
 
 const { sendResponse } = require("../utils");
 const crypto = require("crypto");
@@ -42,18 +44,10 @@ const getUser = async (req, res) => {
       email: ticket.getPayload().email,
     };
 
-    let user = await Users.findOne({ where: { email: profile.email } });
+    let user = await upsertUser(profile);
 
-    if (!user) {
-      user = await Users.create({
-        name: profile.name,
-        email: profile.email,
-      });
-    } else {
-      user = await Users.update({
-        name: profile.name,
-      });
-    }
+    const ascessToken = signToken({ id: user.id });
+    const refToken = refreshToken();
 
     res.send("login success");
   } catch (error) {
