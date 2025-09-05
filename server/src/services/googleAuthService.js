@@ -7,6 +7,7 @@ const oauth2Client = new OAuth2Client({
   clientSecret: googleClient.client_secret,
   redirectUri: googleClient.redirect_uris,
 });
+
 function generateAuthUrl(state) {
   return oauth2Client.generateAuthUrl({
     access_type: "online",
@@ -15,7 +16,15 @@ function generateAuthUrl(state) {
   });
 }
 
+async function verifyIdToken(tokens) {
+  return await oauth2Client.verifyIdToken({
+    idToken: tokens.id_token,
+    audience: googleClient.client_id,
+  });
+}
+
 module.exports = {
   generateAuthUrl,
   oauth2Client,
+  verifyIdToken,
 };

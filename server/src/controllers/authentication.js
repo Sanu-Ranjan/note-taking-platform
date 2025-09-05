@@ -1,8 +1,10 @@
 const {
   generateAuthUrl,
   oauth2Client,
+  verifyIdToken,
 } = require("../services/googleAuthService");
-const { googleClient, sendResponse } = require("../utils");
+
+const { sendResponse } = require("../utils");
 const crypto = require("crypto");
 
 const isProd = process.env.NODE_ENV === "production";
@@ -28,10 +30,7 @@ const getUser = async (req, res) => {
 
     const { tokens } = await oauth2Client.getToken(code);
 
-    const ticket = await oauth2Client.verifyIdToken({
-      idToken: tokens.id_token,
-      audience: googleClient.client_id,
-    });
+    const ticket = await verifyIdToken(tokens);
 
     console.log(ticket);
     res.send("login success");
