@@ -13,6 +13,7 @@ function signToken(payload) {
   const token = jwt.sign(payload, config.get(secret), {
     expiresIn: expiry || "5d",
   });
+  return token;
 }
 
 module.exports = {
