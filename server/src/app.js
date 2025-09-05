@@ -4,10 +4,11 @@ let app = express();
 const { database } = require("./db/databse");
 require("./models");
 const { globalErrorHandler } = require("./utils/globalErrorHandler");
-
 const authentication = require("./routes/authentication");
+const cookieParser = require("cookie-parser");
 
 app.use(express.json());
+app.use(cookieParser());
 
 app.use("/api/v1/auth", authentication.router);
 
