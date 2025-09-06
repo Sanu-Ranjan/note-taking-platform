@@ -4,11 +4,14 @@ const {
   generateAuthUrl,
   getUserProfile,
 } = require("../services/googleAuthService");
-const { signToken, refreshToken } = require("../services/tokenService");
+const {
+  signToken,
+  refreshToken,
+  saveRefreshToken,
+} = require("../services/tokenService");
 const { upsertUser } = require("../services/userServices");
 const { sendResponse } = require("../utils");
 const crypto = require("crypto");
-const dayjs = require("dayjs");
 
 const isProd = process.env.NODE_ENV === "production";
 
@@ -33,19 +36,7 @@ const getUser = async (req, res) => {
     const ascessToken = signToken({ id: user.id });
     const refToken = refreshToken();
 
-    const tokenHash = crypto
-      .createHash("sha256")
-      .update(refToken)
-      .digest("hex");
-    const expiresAt = dayjs()
-      .add(Number(process.env.REFRESH_TOKEN_EXPIRES || 9), "day")
-      .toDate();
-
-    await RefreshTokens.create({
-      userId: user.id,
-      tokenHash: tokenHash,
-      expiresAt: expiresAt,
-    });
+    await saveRefreshToken(refToken, user.id);
 
     res.send("login success");
   } catch (error) {
