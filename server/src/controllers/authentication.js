@@ -1,10 +1,10 @@
+const { setStateCookie } = require("../services/cookieService");
 const {
   generateAuthUrl,
   getUserProfile,
 } = require("../services/googleAuthService");
 const { signToken, refreshToken } = require("../services/tokenService");
 const { upsertUser } = require("../services/userServices");
-
 const { sendResponse } = require("../utils");
 const crypto = require("crypto");
 
@@ -12,12 +12,7 @@ const isProd = process.env.NODE_ENV === "production";
 
 const consentRedirect = (req, res) => {
   const state = crypto.randomBytes(16).toString("hex");
-  res.cookie("oauth_state", state, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: isProd,
-    maxAge: 5 * 60 * 1000,
-  });
+  setStateCookie(res, state, isProd);
   res.redirect(generateAuthUrl(state));
 };
 
