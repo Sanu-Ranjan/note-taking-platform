@@ -23,8 +23,25 @@ async function verifyIdToken(tokens) {
   });
 }
 
+async function getUserProfile(code, res) {
+  const { tokens } = await oauth2Client.getToken(code);
+
+  const ticket = await verifyIdToken(tokens);
+
+  const isVerified = ticket.getPayload().email_verified;
+  if (!isVerified)
+    return res.status(400).json(sendResponse.fail("Email not verified"));
+
+  const profile = {
+    name: ticket.getPayload().name,
+    email: ticket.getPayload().email,
+  };
+  return profile;
+}
+
 module.exports = {
   generateAuthUrl,
   oauth2Client,
   verifyIdToken,
+  getUserProfile,
 };

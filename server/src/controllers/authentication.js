@@ -1,8 +1,6 @@
-const { Users } = require("../models");
 const {
   generateAuthUrl,
-  oauth2Client,
-  verifyIdToken,
+  getUserProfile,
 } = require("../services/googleAuthService");
 const { signToken, refreshToken } = require("../services/tokenService");
 const { upsertUser } = require("../services/userServices");
@@ -31,18 +29,7 @@ const getUser = async (req, res) => {
       return res.status(400).json(sendResponse.fail("Invalid State"));
     }
 
-    const { tokens } = await oauth2Client.getToken(code);
-
-    const ticket = await verifyIdToken(tokens);
-
-    const isVerified = ticket.getPayload().email_verified;
-    if (!isVerified)
-      return res.status(400).json(sendResponse.fail("Email not verified"));
-
-    const profile = {
-      name: ticket.getPayload().name,
-      email: ticket.getPayload().email,
-    };
+    const profile = getUserProfile(code, res);
 
     let user = await upsertUser(profile);
 
