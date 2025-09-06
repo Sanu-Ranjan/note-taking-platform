@@ -26,3 +26,7 @@
 - added route for authentication/authorization (get method complete for redirecting users to consent screen)
 - added callback route for getting user info(incomplete)
 - added state verification (send state with cookie and redirect url and vrifying them at callback api)
+- exchange auth code to get user details done
+- upserting user after checking for verified email done
+- generated ascess token nad refresh token
+- after hashing refresh token save it in database along with associated userId, and its expiry
