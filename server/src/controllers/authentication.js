@@ -29,7 +29,7 @@ const getUser = async (req, res) => {
       return res.status(400).json(sendResponse.fail("Invalid State"));
     }
 
-    const profile = getUserProfile(code, res);
+    const profile = await getUserProfile(code, res);
 
     let user = await upsertUser(profile);
 
