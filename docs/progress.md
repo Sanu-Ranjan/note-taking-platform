@@ -30,3 +30,8 @@
 - upserting user after checking for verified email done
 - generated ascess token nad refresh token
 - after hashing refresh token save it in database along with associated userId, and its expiry
+
+## week 4
+
+- sending refresh token cokie
+- sending jwt(ascess token) cookie
