@@ -38,7 +38,20 @@ const getUser = async (req, res) => {
 
     await saveRefreshToken(refToken, user.id);
 
-    res.send("login success");
+    const now = Date.now();
+    res.cookie("refreshToken", refToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: isProd,
+      expires: new Date(now + 1000 * 60 * 60 * 24 * 9),
+    });
+    res.cookie("JWT", ascessToken, {
+      httpOnly: true,
+      sameSite: "lax",
+      secure: isProd,
+      expires: new Date(now + 1000 * 60 * 60 * 24 * 3),
+    });
+    res.send("Login successful");
   } catch (error) {
     console.log(error);
   }
