@@ -29,6 +29,9 @@ const getUser = async (req, res) => {
   try {
     const { code, state, error } = req.query;
 
+    if (error)
+      return res.status(400).json(sendResponse.fail("Login error", error));
+
     if (!state || state !== req.cookies.oauth_state) {
       return res.status(400).json(sendResponse.fail("Invalid State"));
     }
