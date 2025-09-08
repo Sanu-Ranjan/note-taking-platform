@@ -36,3 +36,6 @@
 - sending refresh token cokie
 - sending jwt(ascess token) cookie
 - seperated logic to set cookies via function
+- handling error if user press cancel or other log time error
+- added response for caught errors
+- Google OAuth login complete
