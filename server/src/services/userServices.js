@@ -9,7 +9,7 @@ async function upsertUser(profile) {
       email: profile.email,
     });
   } else {
-    user = await Users.update({
+    user = await user.update({
       name: profile.name,
     });
   }
