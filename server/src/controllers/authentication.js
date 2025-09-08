@@ -29,8 +29,10 @@ const getUser = async (req, res) => {
   try {
     const { code, state, error } = req.query;
 
-    if (error)
-      return res.status(400).json(sendResponse.fail("Login error", error));
+    if (error) {
+      console.log(`Google Auth error: ${error}`);
+      return res.status(400).json(sendResponse.fail("Google Auth error"));
+    }
 
     if (!state || state !== req.cookies.oauth_state) {
       return res.status(400).json(sendResponse.fail("Invalid State"));
@@ -51,6 +53,7 @@ const getUser = async (req, res) => {
     res.send("Login successful");
   } catch (error) {
     console.log(error);
+    res.status(500).json(sendResponse.fail("Oauth_failed"));
   }
 };
 module.exports = {
