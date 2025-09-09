@@ -128,8 +128,33 @@ const rotateRefreshToken = async (req, res) => {
   }
 };
 
+const logOut = async (req, res) => {
+  try {
+    const refreshToken = req.cookies.refreshToken;
+
+    const refreshHash = crypto
+      .createHash("sha256")
+      .update(refreshToken)
+      .digest("hex");
+    const rt = await RefreshTokens.findOne({
+      where: { tokenHash: refreshHash },
+    });
+
+    await rt.update({ revokedAt: new Date() });
+
+    res.clearCookie("refreshToken");
+    res.clearCookie("JWT");
+
+    res.json(sendResponse.success("logged_out"));
+  } catch (error) {
+    console.log(error);
+    res.status(500).json("logout error");
+  }
+};
+
 module.exports = {
   consentRedirect,
   getUser,
   rotateRefreshToken,
+  logOut,
 };
