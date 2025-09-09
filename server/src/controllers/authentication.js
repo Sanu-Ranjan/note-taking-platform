@@ -40,7 +40,7 @@ const getUser = async (req, res) => {
     if (!state || state !== req.cookies.oauth_state) {
       return res.status(400).json(sendResponse.fail("Invalid State"));
     }
-
+    res.clearCookie("oauth_state");
     const profile = await getUserProfile(code, res);
 
     let user = await upsertUser(profile);
@@ -94,6 +94,8 @@ const rotateRefreshToken = async (req, res) => {
           },
         }
       );
+      res.clearCookie("refreshToken");
+      res.clearCookie("JWT");
       return res.status(401).json(sendResponse.fail("Invalid"));
     }
 
