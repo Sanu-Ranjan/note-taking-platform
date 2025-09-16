@@ -28,6 +28,30 @@ const getSubjectList = async (req, res, next) => {
   }
 };
 
+const addSubject = async (req, res, next) => {
+  try {
+    const user = req.user.id;
+    const { subName } = req.body;
+
+    if (!subName)
+      return res
+        .status(400)
+        .json(sendResponse.fail("Missing required Subject name"));
+
+    const subject = Subjects.create({
+      subName: subName,
+      userId: user,
+    });
+
+    res.status(201).json(sendResponse.success("Subject added", subject));
+  } catch (error) {
+    error.info = "error at addSubject controller";
+    error.status = 500;
+    next(error);
+  }
+};
+
 module.exports = {
   getSubjectList,
+  addSubject,
 };
