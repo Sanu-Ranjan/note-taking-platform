@@ -51,7 +51,35 @@ const addSubject = async (req, res, next) => {
   }
 };
 
+const searchSubject = async (req, res, next) => {
+  try {
+    const user = req.user.id;
+    const { subName } = req.params.name;
+
+    if (!subName)
+      return res
+        .status(400)
+        .json(sendResponse.fail("Missing required subject name params"));
+
+    const subject = Subjects.findOne({
+      where: {
+        userId: user,
+      },
+      include: {
+        model: Notes,
+        attributes: ["id", "topic", "content"],
+      },
+    });
+    res.status(200).json(sendResponse.success("Subject found", subject));
+  } catch (error) {
+    error.info = "error at searchSubject controller";
+    error.status = 500;
+    next(error);
+  }
+};
+
 module.exports = {
   getSubjectList,
   addSubject,
+  searchSubject,
 };
