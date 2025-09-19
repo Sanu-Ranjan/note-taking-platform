@@ -115,11 +115,14 @@ const rotateRefreshToken = async (req, res) => {
         },
         { transaction: t }
       );
-      await RefreshTokens.create({
-        tokenHash: newRefreshHash,
-        expiresAt: expiresAt,
-        userId: rt.userId,
-      });
+      await RefreshTokens.create(
+        {
+          tokenHash: newRefreshHash,
+          expiresAt: expiresAt,
+          userId: rt.userId,
+        },
+        { transaction: t }
+      );
     });
 
     setJWTcookie(res, newAscessToken, isProd);

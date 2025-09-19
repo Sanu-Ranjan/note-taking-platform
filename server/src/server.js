@@ -8,7 +8,7 @@ require("./models");
 const port = process.env.PORT || 3000;
 (async function () {
   try {
-    await database.sync({ force: true });
+    await database.sync({ force: false });
     app.listen(port, () => {
       console.log(`listening on port:${port}`);
     });

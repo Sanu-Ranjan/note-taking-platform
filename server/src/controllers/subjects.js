@@ -1,4 +1,5 @@
-const { Users, Subjects } = require("../models");
+const { database } = require("../db/databse");
+const { Users, Subjects, Notes } = require("../models");
 const { sendResponse } = require("../utils");
 
 const getSubjectList = async (req, res, next) => {
@@ -38,7 +39,7 @@ const addSubject = async (req, res, next) => {
         .status(400)
         .json(sendResponse.fail("Missing required Subject name"));
 
-    const subject = Subjects.create({
+    const subject = await Subjects.create({
       subName: subName,
       userId: user,
     });
@@ -61,7 +62,7 @@ const searchSubject = async (req, res, next) => {
         .status(400)
         .json(sendResponse.fail("Missing required subject name params"));
 
-    const subject = Subjects.findOne({
+    const subject = await Subjects.findOne({
       where: {
         userId: user,
       },
@@ -78,8 +79,45 @@ const searchSubject = async (req, res, next) => {
   }
 };
 
+const deleteSubject = async (req, res, next) => {
+  try {
+    const user = req.user.id;
+
+    const subId = req.params.id;
+
+    if (!subId)
+      return res
+        .status(400)
+        .json(sendResponse.fail("Missing required subject Id"));
+
+    await database.transaction(async (t) => {
+      await Notes.destroy({
+        where: {
+          subjectId: subId,
+        },
+        transaction: t,
+      });
+      await Subjects.destroy({
+        where: {
+          id: subId,
+          userId: user,
+        },
+        transaction: t,
+      });
+    });
+
+    return res
+      .status(200)
+      .json(sendResponse.success("Subject deleted along with its notes"));
+  } catch (error) {
+    error.info = "error at searchSubject controller";
+    error.status = 500;
+    next(error);
+  }
+};
 module.exports = {
   getSubjectList,
   addSubject,
   searchSubject,
+  deleteSubject,
 };
