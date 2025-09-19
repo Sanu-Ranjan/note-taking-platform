@@ -6,7 +6,7 @@ const {
 } = require("../controllers/subjects");
 
 const router = require("express").Router();
-router.get("/:name", searchSubject);
+router.get("/:subName", auth, searchSubject);
 router.get("/", auth, getSubjectList);
 router.post("/", auth, addSubject);
 module.exports = {

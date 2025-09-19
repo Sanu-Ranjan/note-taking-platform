@@ -54,7 +54,7 @@ const addSubject = async (req, res, next) => {
 const searchSubject = async (req, res, next) => {
   try {
     const user = req.user.id;
-    const { subName } = req.params.name;
+    const { subName } = req.params;
 
     if (!subName)
       return res
