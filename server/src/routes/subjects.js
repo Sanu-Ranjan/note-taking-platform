@@ -7,7 +7,6 @@ const {
 const { authenticate } = require("../middlewares/auth");
 
 const router = require("express").Router();
-
 router.get("/:subName", authenticate, searchSubject);
 router.get("/", authenticate, getSubjectList);
 router.post("/", authenticate, addSubject);

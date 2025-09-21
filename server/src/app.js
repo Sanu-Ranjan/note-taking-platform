@@ -4,6 +4,7 @@ const { globalErrorHandler } = require("./utils/globalErrorHandler");
 const cookieParser = require("cookie-parser");
 const authentication = require("./routes/authentication");
 const subjects = require("./routes/subjects");
+const notes = require("./routes/notes");
 
 const { notFoundHandler } = require("./middlewares/notFoundHandler");
 
@@ -12,6 +13,7 @@ app.use(cookieParser());
 
 app.use("/api/v1/auth", authentication.router);
 app.use("/api/v1/subjects", subjects.router);
+app.use("/api/v1/notes", notes.router);
 app.use(notFoundHandler);
 app.use(globalErrorHandler);
 
