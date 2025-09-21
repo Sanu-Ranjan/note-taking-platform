@@ -56,14 +56,14 @@
 - `GET/` - Subject Listing of a user
 - `POST/` - Subject Creation for a user
 - `GET/:name` - Search Subject for a user
-- `POST/:id` - Subject Deletion for a user
+- `DELETE/:id` - Subject Deletion for a user
 
 **Notes Routes (protected routes)** (`/api/v1/notes`)
 
 - `GET/:id` - Note Listing of a subject
 - `POST/` - Notes Creation
 - `PUT/:id` - Notes Updation
-- `POST/:id` - Notes Deletion
+- `DELETE/:id` - Notes Deletion
 - `GET/:topic` - Notes Search
 
 **Requests Routes (protected routes)** (`api/v1/requests`)
@@ -71,3 +71,4 @@
 - `POST/` - Create Note Sharing request
 - `POST/:id` - Accept/reject request
 - `GET/` - List all incoming request
+- `DELETE/` - Delete request
