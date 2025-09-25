@@ -72,3 +72,8 @@
 - `POST/:id` - Accept/reject request
 - `GET/` - List all incoming request
 - `DELETE/` - Delete request
+
+**Recieved Notes (Protected routes)** (`api/v1/recieved`)
+
+- `GET/` - List all recieved note for a user
+- `DELETE/` - delete a recieved note for a user
