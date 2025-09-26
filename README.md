@@ -12,8 +12,8 @@ Check the project requirement document here : [PRD](./docs/PRD.md)
 
 - [x] Step 1: Repo & Scaffolding
 - [x] Step 2: Folder Structure
-- [ ] Step 3: Backend Setup
-- [ ] Step 4: Auth & Security
+- [x] Step 3: Backend Setup
+- [x] Step 4: Auth & Security
 - [ ] Step 5: Front End Setup
 - [ ] Step 6: Dockerization
 - [ ] Step 7: Testing & Documentation
