@@ -74,8 +74,33 @@ const requestList = async (req, res, next) => {
   }
 };
 
+const cancelRequest = async (req, res, next) => {
+  try {
+    const userId = req.user?.id;
+
+    const { id } = req.body;
+
+    const userEmail = await Users.findByPk(userId, { attributes: ["email"] });
+
+    const request = await Requests.findByPk(id);
+
+    if (!request) return req.status(404).json(sendResponse.fail("Not found"));
+
+    if (request.fromUser !== userEmail.email)
+      return res.status(401).json(sendResponse.fail("Not allowed"));
+
+    await request.destroy();
+    res.status(200).json(sendResponse.success("Request deleted"));
+  } catch (error) {
+    error.info = "error at list request controller";
+    error.status = 500;
+    next(error);
+  }
+};
+
 module.exports = {
   createRequest,
   manageRequest,
   requestList,
+  cancelRequest,
 };
